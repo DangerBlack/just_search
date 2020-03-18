@@ -2,25 +2,21 @@ const JustWatch = require('justwatch-api');
 var ptn = require('parse-torrent-name');
 const fs = require('fs');
 
-
 const locale = 'it_IT';
 const source_list_file = 'titles.txt';
 const output_json = 'database.json';
 const output_action = 'actions.sh';
 
-
-
 const jw = new JustWatch({
     locale
 });
-
 
 function is_available(offers: any)
 {
     if(!offers)
         return false;
 
-    const availability = offers.map((offer) =>
+    const availability = offers.map((offer: any) =>
     {
         offer.value = offer.monetization_type === 'flatrate' && offer.urls && offer.urls.standard_web && (offer.urls.standard_web.includes('netflix.com') || offer.urls.standard_web.includes('primevideo.com/'))
         return offer;
@@ -39,7 +35,7 @@ const database = {};
 
 const promise = titles.map(async (title: string) =>
 {
-    return new Promise(async (resolve, reject) =>
+    return new Promise(async (resolve) =>
     {
         const nat_title = ptn(title);
         nat_title.title = nat_title.title.replace('ITA ENG', '').trim();
@@ -65,6 +61,7 @@ const promise = titles.map(async (title: string) =>
                     };
                 }
             }
+
             return resolve();
         }
         catch(error)
@@ -75,11 +72,12 @@ const promise = titles.map(async (title: string) =>
     });
 });
 
-Promise.all(promise).then(async () => {
-
+Promise.all(promise).then(async () => 
+{
     await fs.writeFileSync(output_json, JSON.stringify(database));
     let actions = ''; 
-    Object.keys(database).map((title) => {
+    Object.keys(database).map((title) => 
+    {
         if(database[title].available)
         {
             actions += `rm -rf "${title}"\n`;
