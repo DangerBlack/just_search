@@ -1,0 +1,25 @@
+{
+  "name": "just_search",
+  "version": "1.0.0",
+  "description": "Filter a list of movie title already available on netflix and amazon prime",
+  "main": "index.js",
+  "dependencies": {
+    "justwatch-api": "^1.0.7",
+    "parse-torrent-name": "^0.5.4",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "@types/node": "^13.9.1"
+  },
+  "scripts": {
+    "start": "ts-node just_search.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "netflix",
+    "movie",
+    "amazon"
+  ],
+  "author": "DangerBlack",
+  "license": "MIT"
+}
